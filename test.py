@@ -22,18 +22,23 @@ def evaluate_model():
     print('Test loss:', test_loss)
     print('Test accuracy:', test_accuracy)
 
-def predict_img():
-    img = load_img('DataSet/Test/Cuts/3.jpg', target_size=(224, 224))
+def predict_img(path):
+    img = load_img(path, target_size=(224, 224))
     img_array = img_to_array(img)
     img_array = img_array / 255.0
     img_array = np.expand_dims(img_array, axis=0)
 
     predictions = model.predict(img_array)
 
-    print("Predictions: ", predictions)
+    print(f"Predictions for {path}: ", predictions)
     if predictions[0] > 0.5:
         print('Predicted: Cut')
     else:
         print('Predicted: Burn')
 
-predict_img()
+
+def main():
+    evaluate_model()
+
+if __name__ == '__main__':
+    main()
